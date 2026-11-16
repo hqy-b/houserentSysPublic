@@ -26,6 +26,9 @@ public class ApplyViewService extends BaseService<ApplyViewDao, ApplyView> {
     @Override
     public ApplyView get(String id) {
         ApplyView applyView = super.get(id);
+        if (applyView == null) {
+            return null;
+        }
         applyView.setHouseResource(houseResourceService.get(applyView.getHouseId()));
         return applyView;
     }

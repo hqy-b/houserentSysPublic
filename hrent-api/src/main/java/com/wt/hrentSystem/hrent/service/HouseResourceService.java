@@ -36,7 +36,13 @@ public class HouseResourceService extends BaseService<HouseResourceDao, HouseRes
      */
     @Override
     public HouseResource get(String id) {
+        if (StringUtils.isBlank(id)) {
+            return null;
+        }
         HouseResource houseResource = super.get(id);
+        if (houseResource == null) {
+            return null;
+        }
         Pic pic = new Pic();
         pic.setHouseId(houseResource.getId());
         houseResource.setPicList(picService.findList(pic));

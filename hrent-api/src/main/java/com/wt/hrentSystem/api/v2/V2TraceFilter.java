@@ -2,6 +2,7 @@ package com.wt.hrentSystem.api.v2;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -40,12 +41,14 @@ public class V2TraceFilter implements Filter {
         }
         String traceId = TraceIds.newId();
         request.setAttribute(TraceIds.ATTR, traceId);
+        MDC.put("traceId", traceId);
         long start = System.currentTimeMillis();
         try {
             chain.doFilter(req, res);
         } finally {
             log.info("v2 traceId=" + traceId + " method=" + request.getMethod()
                     + " uri=" + uri + " cost=" + (System.currentTimeMillis() - start) + "ms");
+            MDC.remove("traceId");
         }
     }
 }

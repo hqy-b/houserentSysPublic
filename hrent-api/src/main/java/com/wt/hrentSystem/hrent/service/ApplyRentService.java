@@ -32,6 +32,9 @@ public class ApplyRentService extends BaseService<ApplyRentDao, ApplyRent> {
     @Override
     public ApplyRent get(String id) {
         ApplyRent applyRent = super.get(id);
+        if (applyRent == null) {
+            return null;
+        }
         applyRent.setHouseResource(houseResourceService.get(applyRent.getHouseId()));
         return applyRent;
     }

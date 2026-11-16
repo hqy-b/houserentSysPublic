@@ -236,10 +236,7 @@
             del_flag = 1,
         </set>
         where
-        1=1
-        <if test="id != null and id != ''">
-            and id = #{id}
-        </if>
+        id = #{id}
     </delete>
 
 </mapper>
